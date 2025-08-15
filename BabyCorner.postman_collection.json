@@ -1,0 +1,130 @@
+{
+  "info": {
+    "_postman_id": "bcbf7e7e-8e7e-4b2a-9e7e-8e7e4b2a9e7e",
+    "name": "BabyCorner API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for BabyCorner backend. Use {{base_url}} and {{token}} variables."
+  },
+  "variable": [
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Admin Login",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "url": { "raw": "http://localhost:5000/api/admin/login", "host": [ "http://localhost:5000" ], "path": [ "api", "admin", "login" ] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Admin Details",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "http://localhost:5000/api/admin/me", "host": [ "http://localhost:5000" ], "path": [ "api", "admin", "me" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Delivery Company (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "http://localhost:5000/api/admin/delivery-companies", "host": [ "http://localhost:5000" ], "path": [ "api", "admin", "delivery-companies" ] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Fast Delivery\",\n  \"prices\": [{ \"wilaya_id\": 1, \"home_price\": 500, \"stopdesk_price\": 300 }]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Delivery Companies (Public)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:5000/api/delivery-companies", "host": [ "http://localhost:5000" ], "path": [ "api", "delivery-companies" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Delivery Company Prices (Public)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:5000/api/delivery-companies/1/prices", "host": [ "http://localhost:5000" ], "path": [ "api", "delivery-companies", "1", "prices" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Products (Public)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:5000/api/products", "host": [ "http://localhost:5000" ], "path": [ "api", "products" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Product by ID (Public)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:5000/api/products/1", "host": [ "http://localhost:5000" ], "path": [ "api", "products", "1" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Order (Public)",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "url": { "raw": "http://localhost:5000/api/orders", "host": [ "http://localhost:5000" ], "path": [ "api", "orders" ] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"client_name\": \"John Doe\",\n  \"phone\": \"123456789\",\n  \"address\": \"123 Main St\",\n  \"wilaya_id\": 1,\n  \"delivery_company_id\": 1,\n  \"delivery_method\": \"home\",\n  \"items\": [{\n    \"product_id\": 1,\n    \"quantity\": 2,\n    \"price\": 100\n  }],\n  \"total_price\": 200\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Orders (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "http://localhost:5000/api/admin/orders", "host": [ "http://localhost:5000" ], "path": [ "api", "admin", "orders" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Order by ID (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "http://localhost:5000/api/admin/orders/1", "host": [ "http://localhost:5000" ], "path": [ "api", "admin", "orders", "1" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Order Status (Admin)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "http://localhost:5000/api/admin/orders/1/status", "host": [ "http://localhost:5000" ], "path": [ "api", "admin", "orders", "1", "status" ] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"confirmed\"\n}"
+        }
+      },
+      "response": []
+    }
+  ]
+}

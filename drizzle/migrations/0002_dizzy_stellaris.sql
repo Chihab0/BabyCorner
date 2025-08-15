@@ -1,0 +1,1 @@
+ALTER TABLE "delivery_companies" ALTER COLUMN "prices" SET DATA TYPE jsonb;

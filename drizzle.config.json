@@ -1,0 +1,8 @@
+{
+  "schema": "./src/models/schema.js",
+  "out": "./drizzle/migrations",
+  "dialect": "postgresql",
+  "dbCredentials": {
+    "url": "postgres://postgres:admin@localhost:5432/babycorner"
+  }
+}
