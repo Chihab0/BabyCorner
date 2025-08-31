@@ -3,7 +3,7 @@
     "_postman_id": "bcbf7e7e-8e7e-4b2a-9e7e-8e7e4b2a9e7e",
     "name": "BabyCorner API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "Postman collection for BabyCorner backend. Use {{base_url}} and {{token}} variables."
+    "description": "Postman collection for BabyCorner backend. Use the 'token' variable for authentication.\n\nTo add images to a product, use the 'Create Product (Admin)' endpoint with body type 'form-data':\n- Add all product fields as key-value pairs (type: text).\n- For images, add one or more keys named 'images' (type: file) and select image files.\n- You can upload up to 5 images per product.\n\nAlternatively, for testing, you can use raw JSON and provide an array of image filenames in the 'images' field, but no files will be uploaded."
   },
   "variable": [
     { "key": "token", "value": "" }
@@ -28,6 +28,26 @@
         "method": "GET",
         "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
         "url": { "raw": "http://localhost:5000/api/admin/me", "host": [ "http://localhost:5000" ], "path": [ "api", "admin", "me" ] }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Product (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Baby T-shirt\",\n  \"description\": \"Soft cotton baby t-shirt\",\n  \"category\": \"clothing\",\n  \"sizes\": [\"S\", \"M\"],\n  \"colors\": [\"blue\", \"white\"],\n  \"price\": 1200,\n  \"stock_quantity\": 50,\n  \"images\": [\"image1.jpg\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/admin/products",
+          "host": ["http://localhost:5000"],
+          "path": ["api", "admin", "products"]
+        }
       },
       "response": []
     },

@@ -1,4 +1,3 @@
-
 import express from 'express';
 import * as adminController from '../controllers/adminController.js';
 import * as productsController from '../controllers/productsController.js';
@@ -34,7 +33,13 @@ router.get('/me', authMiddleware, async (req, res, next) => {
 // Products CRUD (admin)
 router.post('/products', authMiddleware, upload.array('images', 5), validateRequest(productSchema), async (req, res, next) => {
   try {
-    const product = await productsController.createProduct({ ...req.body, images: req.files.map(f => f.filename) });
+    let images = [];
+    if (req.files && req.files.length > 0) {
+      images = req.files.map(f => f.filename);
+    } else if (Array.isArray(req.body.images)) {
+      images = req.body.images;
+    }
+    const product = await productsController.createProduct({ ...req.body, images });
     res.status(201).json(product);
   } catch (err) {
     next(err);

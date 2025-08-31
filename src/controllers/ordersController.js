@@ -1,7 +1,7 @@
-
 import { db } from '../db/index.js';
 import { orders } from '../models/schema.js';
 import { pool } from '../config/db.js';
+import { eq } from 'drizzle-orm';
 
 export async function createOrder(data) {
   // Ensure items is a real array, not a string
@@ -34,18 +34,18 @@ export async function createOrder(data) {
 export async function getOrders(query) {
   // Optionally filter by status, date range
   let q = db.select().from(orders);
-  if (query.status) q = q.where(orders.status.eq(query.status));
+  if (query.status) q = q.where(eq(orders.status, query.status));
   // Add date range filter if needed
   const result = await q;
   return result;
 }
 
 export async function getOrderById(id) {
-  const order = await db.select().from(orders).where(orders.id.eq(Number(id)));
+  const order = await db.select().from(orders).where(eq(orders.id, Number(id)));
   return order[0] || null;
 }
 
 export async function updateOrderStatus(id, status) {
-  const updated = await db.update(orders).set({ status }).where(orders.id.eq(Number(id))).returning();
+  const updated = await db.update(orders).set({ status }).where(eq(orders.id, Number(id))).returning();
   return updated[0];
 }
